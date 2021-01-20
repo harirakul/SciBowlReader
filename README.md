@@ -24,4 +24,4 @@ Find a packet from [this list of sample questions](https://science.osti.gov/wdts
 
 ## Known Issues
 
-Doesn't work yet for the packets that have a green pare at the top of the first page.
+Doesn't work yet for the packets that have a green bar at the top of the first page.
