@@ -2,6 +2,7 @@ from PyPDF2 import PdfFileReader
 import re, io
 import requests
 import qparser
+import pickle
 
 class Packet():
     def __init__(self, url: str) -> None:
@@ -17,7 +18,8 @@ class Packet():
         self.questions = []
         for page in self.pages:
             txt = page.extractText().strip().replace('\n','')
-            quests = re.split(' [1-9]\)| [1-9][1-9]\)', txt)
+            quests = re.split(r'[1-9]{1,2}\)', txt)
+            # quests = re.split(r' [1-9]\)| [1-9][1-9]\)', txt)
             for q in quests[1:]:
                 try:
                     self.questions.append(qparser.parseQ(q))
@@ -26,6 +28,16 @@ class Packet():
 
 
 if __name__ == "__main__":
-    url = 'https://science.osti.gov/-/media/wdts/nsb/pdf/HS-Sample-Questions/Sample-Set-1/round5.pdf'
-    p = Packet(url)
-    print(len(p.questions))
+    current = "sets/group1/"
+    for i in range(1, 18):
+        url = f'https://science.osti.gov/-/media/wdts/nsb/pdf/HS-Sample-Questions/Sample-Set-1/round{i}.pdf'
+        p = Packet(url)
+        with open(f"{current}round{i}.txt", 'wb') as f:
+            pickle.dump(p, f)
+        # with open(f"{current}round{i}.txt", "rb") as f:
+        #     newp = pickle.load(f)
+        
+        # print(p.questions == newp.questions)
+
+
+        # print(len(p.questions))
