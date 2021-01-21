@@ -9,7 +9,7 @@ class Packet():
         f = io.BytesIO(r.content)
         self.reader = PdfFileReader(f)
         self.info = self.reader.getDocumentInfo()
-        self.title = self.info['/Title']
+        self.txt = self.reader.getPage(0).extractText().strip().replace('\n','')
         self.pages = [self.reader.getPage(i) for i in range(self.reader.getNumPages())]        
         self.load_questions()
     
