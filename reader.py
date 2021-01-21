@@ -34,10 +34,3 @@ if __name__ == "__main__":
         p = Packet(url)
         with open(f"{current}round{i}.txt", 'wb') as f:
             pickle.dump(p, f)
-        # with open(f"{current}round{i}.txt", "rb") as f:
-        #     newp = pickle.load(f)
-        
-        # print(p.questions == newp.questions)
-
-
-        # print(len(p.questions))
