@@ -7,7 +7,7 @@ def parseQ(q: str) -> dict:
     quest = q[q.find(typ)+len(typ):q.find('ANSWER')].strip()
     end = q[q.find('ANSWER')+6:]
     rdict = {"Subject": subj, "Type": typ, "Question": quest}
-    ans = re.split(': | \(| [BT]O', end)[1].strip()
+    ans = re.split(r': | \(| [BT]O', end)[1].strip()
     rdict.update({"Answer": ans})
     
     if typ == "Multiple Choice":
