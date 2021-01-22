@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import pickle
 from reader import Packet
 
-with open('res\SciBowl.html', 'r') as f:
+with open('res\SciBowl.txt', 'r') as f:
     ht = f.read()
     soup = BeautifulSoup(ht)
 
