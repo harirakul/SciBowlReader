@@ -5,10 +5,12 @@ import re
 import os
 
 engine = pyttsx3.init()
-engine.setProperty('rate', 140)
+engine.setProperty('rate', 150)
 
 def play(p: Packet) -> None:
+    engine.say("Reading science bowl questions in practice mode.")
     for q in p.questions:
+        engine.say("Number " + str(q["Number"]))
         for field in ('Subject', 'Type', 'Question'):
             engine.say(q[field])
 
@@ -22,7 +24,7 @@ def play(p: Packet) -> None:
         if(ans.upper() == q['Answer']):
             engine.say('Good job, that is correct.')
         else:
-            engine.say(f'Sorry, that is incorrect. The correct answer is {q["Answer"]}')
+            engine.say(f'Sorry, that is incorrect. The correct answer is, {q["Answer"]}')
         engine.runAndWait()
         input("Press enter to continue...")
 
