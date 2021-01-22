@@ -22,6 +22,6 @@ $ python play.py
 
 Find a packet from [this list of sample questions](https://science.osti.gov/wdts/nsb/Regional-Competitions/Resources/HS-Sample-Questions) and paste it in to the terminal.
 
-## Known Issues
+## Known Limitations
 
-Doesn't work yet for the packets that have a green bar at the top of the first page.
+Often mispronounces math symbols and formulae, and sometimes misreads chemical formulas.
