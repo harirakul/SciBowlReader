@@ -1,10 +1,12 @@
 import tkinter as tk
 import pickle, os
+import pyttsx3
+import threading
 
 def font(size: float) -> tuple:
     return ("Comic Sans MS", size)
 
-def info(grp: int, rond: int):
+def load_packet(grp: int, rond: int):
     if grp < 1 or grp > len(os.listdir("sets")) + 1:
         raise FileNotFoundError(f"group{grp} does not exist")
     elif rond < 1 or rond > len(os.listdir(f"sets/group{grp}")) + 1:
@@ -12,6 +14,51 @@ def info(grp: int, rond: int):
     with open(f"sets/group{grp}/round{rond}.txt", 'rb') as f:
         p = pickle.load(f)
     return p
+
+def text(root, txt: str, size: float) -> tk.Label:
+    return tk.Label(
+     root, text=txt, bg="#0F6636", fg="white", font=font(size)
+    )
+
+def text_by_var(root, var: tk.StringVar, size = 14) -> tk.Label:
+    return tk.Label(root, textvariable=var, bg="#0F6636", fg="white", font=font(size))
+
+############# GAMEPLAY SCREEN #############
+
+class GUI(threading.Thread):
+    def __init__(self, grp: int, rond: int) -> None:
+        threading.Thread.__init__(self)
+        self.grp = grp
+        self.rond = rond    
+        self.packet = load_packet(grp, rond)  
+        self.engine = pyttsx3.init()
+        self.start()
+        self.greet()
+
+    def run(self):
+        self.root = tk.Tk()
+        self.root.title(f"Science Bowl Practice: Set {self.grp}, Round {self.rond}")
+        self.height = 300; self.width = 600
+        self.canvas = tk.Canvas(self.root, bg="#0F6636", height=self.height, width=self.width)
+        self.create_vars(kwargs={
+            "Question #": (160, 10),
+            "Score": (self.width - 50, 10),
+            "Type": (70, self.height/3),
+            "Subject": (self.width - 200, self.height/3)
+        })
+        self.canvas.pack()
+        self.root.mainloop()
+    
+    def create_vars(self, kwargs) -> None:
+        self.vars = {i: tk.StringVar(value="None") for i in kwargs}
+        for arg in kwargs:
+            x, y = kwargs[arg][0], kwargs[arg][1]
+            text_by_var(self.root, self.vars[arg]).place(x = x, y = y)
+            text(self.root, f"{arg}: ", 14).place(x = x - len(arg)*15, y=y)
+
+    def greet(self) -> None:
+        self.engine.say(f"Welcome. Commencing Set {self.grp}, Round {self.rond}")
+        self.engine.runAndWait()
 
 ############# CONFIGURATION SCREEN #############
 WIDTH = 300
@@ -28,14 +75,14 @@ def update_round(new_round):
     chosen_round = new_round
 
 def start() -> None:
-    packet = info(int(chosen_set), int(chosen_round))
-    print(packet.questions)
+    root.destroy()
+    GUI(int(chosen_set), int(chosen_round))
 
 sets = [str(i) for i in range(1, 13)]
 rounds = [str(i) for i in range(1, 18)]
 
 root = tk.Tk()
-root.title("SciBowlReader")
+root.title("Configure...")
 
 C = tk.Canvas(root, bg="#0F6636", height=HEIGHT, width=WIDTH)
 
