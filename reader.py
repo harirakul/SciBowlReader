@@ -1,4 +1,3 @@
-from typing import final
 from PyPDF2 import PdfFileReader
 import io
 import requests
