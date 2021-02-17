@@ -3,6 +3,7 @@ from reader import Packet
 import pickle
 import re
 import os
+import time
 
 engine = pyttsx3.init()
 engine.setProperty('rate', 150)
@@ -21,6 +22,7 @@ def play(p: Packet) -> None:
 
         engine.runAndWait()
         ans = input('Answer: ')
+        start = time.time()
         if(ans.upper() == q['Answer']):
             engine.say('Good job, that is correct.')
         else:
