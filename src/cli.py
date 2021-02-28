@@ -35,7 +35,7 @@ def get_info(data: str) -> tuple:
     if grp < 1 or grp > len(os.listdir("sets")) + 1:
         raise FileNotFoundError(f"group{grp} does not exist")
     else:
-        if rond < 1 or rond > len(os.listdir(f"sets/group{grp}")) + 1:
+        if rond < 1 or rond > len(os.listdir(f"data/sets/group{grp}")) + 1:
             raise FileNotFoundError(f"group{grp} exists, but no set{rond}")
     return grp, rond
 
@@ -46,6 +46,6 @@ if __name__ == "__main__":
             p = Packet(data)
         else:
             grp, rond = get_info(data)
-            with open(f"sets/group{grp}/round{rond}.txt", 'rb') as f:
+            with open(f"data/sets/group{grp}/round{rond}.txt", 'rb') as f:
                 p = pickle.load(f)
         play(p)

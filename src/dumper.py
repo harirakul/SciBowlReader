@@ -16,5 +16,5 @@ with open('res\SciBowl.txt', 'r') as f:
             url = prefix + li.find('a')['href']
 
             p = Packet(url)
-            with open(f"sets/group{group}/round{rnd}.txt", 'wb') as out:
+            with open(f"data/sets/group{group}/round{rnd}.txt", 'wb') as out:
                 pickle.dump(p, out)
