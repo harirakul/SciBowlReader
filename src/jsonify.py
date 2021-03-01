@@ -2,7 +2,7 @@ import os
 import pickle
 import json
 
-SUBJECTS = ["BIOLOGY", "CHEMISTRY", "EARTH", "PHYSICS", "MATH", "ENERGY", "ASTRONOMY", "GENERAL"]
+SUBJECTS = ["BIOLOGY", "CHEMISTRY", "EARTH AND SPACE", "PHYSICS", "MATH", "ENERGY", "ASTRONOMY"]
 
 filenames = []
 for subdir, dirs, files in os.walk("data/sets"):
