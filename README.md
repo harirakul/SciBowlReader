@@ -17,10 +17,10 @@ $ pip install -r requirements.txt
 
 ## Usage
 ```sh
-$ python play.py
+$ python src/cli.py
 ```
 
-Find a packet from [this list of sample questions](https://science.osti.gov/wdts/nsb/Regional-Competitions/Resources/HS-Sample-Questions) and paste it in to the terminal.
+Find a packet from [this list of sample questions](https://science.osti.gov/wdts/nsb/Regional-Competitions/Resources/HS-Sample-Questions) and paste it in to the terminal, or type the Set # and Round # separated by a space.
 
 ## Known Limitations
 
